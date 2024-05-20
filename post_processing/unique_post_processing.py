@@ -28,7 +28,7 @@ def parse_args():
     return parser.parse_args()
 
 
-similarity_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+similarity_model = SentenceTransformer("sentence-transformers/LaBSE")
 
 if __name__ == "__main__":
     args = parse_args()

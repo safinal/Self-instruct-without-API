@@ -111,8 +111,8 @@ def post_process_response(
         if inst[0] in string.punctuation:
             continue
         # filter those starting with non-english character
-        if not inst[0].isascii():
-            continue
+        # if not inst[0].isascii():
+        #     continue
         instructions.append({"instruction": inst, "input": input, "output": output})
     
     return instructions

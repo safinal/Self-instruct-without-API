@@ -18,7 +18,7 @@ from arguments import parse_args_for_post_processing
 from template import get_template
 from utils import *
 
-similarity_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+similarity_model = SentenceTransformer("sentence-transformers/LaBSE")
 df = pd.DataFrame(columns=["rouge score", "sbert score"], data=np.zeros((10, 2)))
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "false"

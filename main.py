@@ -54,7 +54,11 @@ if __name__ == "__main__":
         print(f"Loaded {len(machine_instructions)} machine-generated instructions")
 
     # similarities
-    scorer = rouge_scorer.RougeScorer(["rougeL"], use_stemmer=False)
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model_name_or_path,
+    )
+    tokenizer.pad_token = tokenizer.eos_token
+    scorer = rouge_scorer.RougeScorer(["rougeL"], use_stemmer=False, tokenizer=tokenizer)
 
     # now let's generate new instructions!
     progress_bar = tqdm(total=args.num_instructions_to_generate)
@@ -69,10 +73,6 @@ if __name__ == "__main__":
         scorer._tokenizer.tokenize(inst) for inst in all_instructions
     ]
 
-    tokenizer = AutoTokenizer.from_pretrained(
-        args.model_name_or_path,
-    )
-    tokenizer.pad_token = tokenizer.eos_token
     model = AutoModelForCausalLM.from_pretrained(
         args.model_name_or_path, torch_dtype=torch.bfloat16, trust_remote_code=True
     )
